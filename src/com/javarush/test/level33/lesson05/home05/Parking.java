@@ -1,0 +1,39 @@
+package com.javarush.test.level33.lesson05.home05;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import java.util.List;
+
+@JsonTypeInfo(
+        use = JsonTypeInfo.Id.NAME,
+        include = JsonTypeInfo.As.PROPERTY,
+        property = "className")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Parking.class, name = ".Parking"),
+})
+
+public class Parking {
+    private final Class<Parking> parkingClass = Parking.class;
+    public String name;
+    public String city;
+    public List<Auto> autos;
+
+    public Parking(String name, String city) {
+        this.name = name;
+        this.city = city;
+    }
+
+    public void setAutos(List<Auto> autos) {
+        this.autos = autos;
+    }
+
+    @Override
+    public String toString() {
+        return "Parking{" +
+                "name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                ", autos=" + autos +
+                '}';
+    }
+}
